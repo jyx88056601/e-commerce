@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useReducer } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import ProductItem from '../components/ProductItem';
 
 import { ApiError } from '../types/ApiErr';
 import { Product } from '../types/Product';
@@ -67,16 +67,8 @@ const HomePage = () => {
   ) : (
     <Row>
       {products.map((product) => (
-        <Col key={product.slug} sm={6} md={4} lg={3}>
-          <Link to={'/product/' + product.slug}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-            />
-            <h2>{product.name}</h2>
-            <p>${product.price}</p>
-          </Link>
+        <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+          <ProductItem product={product}></ProductItem>
         </Col>
       ))}
     </Row>

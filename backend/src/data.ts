@@ -11,7 +11,7 @@ const sampleProducts: Product[] = [
     price: 24999.99,
     countInStock: 12,
     numReviews: 7,
-    rating: 4.4,
+    rating: 0.8,
   },
   {
     name: "2023 Audi Q7 SUV",
@@ -23,7 +23,7 @@ const sampleProducts: Product[] = [
     price: 79999.99,
     countInStock: 6,
     numReviews: 12,
-    rating: 4.9,
+    rating: 1.1,
   },
   {
     name: "2023 Jeep Wrangler Rubicon",
@@ -35,7 +35,7 @@ const sampleProducts: Product[] = [
     price: 44999.99,
     countInStock: 9,
     numReviews: 6,
-    rating: 4.6,
+    rating: 1.6,
   },
   {
     name: "2023 Porsche 911 Carrera",
@@ -47,7 +47,7 @@ const sampleProducts: Product[] = [
     price: 109999.99,
     countInStock: 3,
     numReviews: 11,
-    rating: 4.8,
+    rating: 2.1,
   },
   {
     name: "2023 Subaru Outback",
@@ -59,7 +59,7 @@ const sampleProducts: Product[] = [
     price: 34999.99,
     countInStock: 10,
     numReviews: 5,
-    rating: 4.3,
+    rating: 2.7,
   },
   {
     name: "2023 Mercedes-Benz E-Class",
@@ -71,7 +71,7 @@ const sampleProducts: Product[] = [
     price: 89999.99,
     countInStock: 4,
     numReviews: 8,
-    rating: 4.7,
+    rating: 3.2,
   },
   {
     name: "2023 Tesla Model S",
@@ -83,7 +83,7 @@ const sampleProducts: Product[] = [
     price: 79999.99,
     countInStock: 5,
     numReviews: 10,
-    rating: 4.9,
+    rating: 3.8,
   },
   {
     name: "2023 Ford Mustang GT",
@@ -95,7 +95,7 @@ const sampleProducts: Product[] = [
     price: 68999.99,
     countInStock: 8,
     numReviews: 8,
-    rating: 4.8,
+    rating: 4.1,
   },
   {
     name: "2023 Toyota Camry Hybrid",
@@ -107,7 +107,7 @@ const sampleProducts: Product[] = [
     price: 34999.99,
     countInStock: 15,
     numReviews: 6,
-    rating: 4.5,
+    rating: 4.6,
   },
   {
     name: "2023 BMW X5 SUV",
@@ -119,7 +119,7 @@ const sampleProducts: Product[] = [
     price: 84999.99,
     countInStock: 7,
     numReviews: 9,
-    rating: 4.7,
+    rating: 5,
   },
 ];
 
