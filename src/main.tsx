@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './routers/router';
 import axios from 'axios';
+import { HelmetProvider } from 'react-helmet-async';
 
 // fetch data from backend
 axios.defaults.baseURL =
@@ -12,6 +13,8 @@ axios.defaults.baseURL =
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   </React.StrictMode>
 );
