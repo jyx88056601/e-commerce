@@ -1,6 +1,7 @@
+import { HStack } from '@chakra-ui/react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-
+import ThemeModeSwitch from './components/ThemeModeSwitch';
 function App() {
   return (
     <div className="d-flex flex-column vh-100">
@@ -9,12 +10,15 @@ function App() {
           <Navbar.Brand>Brand Name</Navbar.Brand>
         </Container>
         <Nav>
-          <a href="/cart" className="nav-link">
-            Cart
-          </a>
-          <a href="/signin" className="nav-link">
-            Sign in
-          </a>
+          <HStack>
+            <a href="/cart" className="nav-link">
+              Cart
+            </a>
+            <a href="/signin" className="nav-link">
+              Sign in
+            </a>
+            <ThemeModeSwitch></ThemeModeSwitch>
+          </HStack>
         </Nav>
       </Navbar>
 
