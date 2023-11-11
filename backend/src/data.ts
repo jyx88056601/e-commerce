@@ -9,7 +9,7 @@ const sampleProducts: Product[] = [
     brand: "Honda",
     description: "The reliable and stylish 2023 Honda Civic for daily commuting.",
     price: 24999.99,
-    countInStock: 12,
+    countInStock: 0,
     numReviews: 7,
     rating: 0.8,
   },

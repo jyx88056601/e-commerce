@@ -3,13 +3,13 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import ProductItem from '../components/ProductItem';
-import useGetProductsQuery from '../hooks/productsHooks';
+import { useGetProductsQuery } from '../hooks/productsHooks';
 import { ApiError } from '../types/ApiErr';
 import { getError } from '../utils';
 
 const HomePage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
-  console.log(products);
+
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
