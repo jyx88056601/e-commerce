@@ -15,7 +15,7 @@ if (!process.env.MONGODB_URI) {
 
 const MONGDB_URI = process.env.MONGODB_URI || "mongodb://localhost/ecommercedb";
 mongoose.set("strictQuery", true);
-mongoose.connect (MONGDB_URI)
+mongoose.connect(MONGDB_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("Error connecting to MongoDB:", error));
 
@@ -23,15 +23,26 @@ mongoose.connect (MONGDB_URI)
 
 //CORS is essential for building secure and interoperable web applications
 import cors from "cors"
-import { productRouter } from "./src/routers/productRouter";
-import seedRouter from "./src/routers/seedRouter";
 app.use(cors({
   credentials:true,
   origin: ["http://localhost:5173"],
-})) 
+}))
+// 
+import sampleProducts from   "./src/data"
+// app will listen to port 4000 and wait for the valid request and return res.json(sampleProducts);
 
-app.use('/api/products', productRouter);
-app.use('/api/seed', seedRouter);
+
+
+
+ 
+app.get('/api/products', (req: Request, res: Response) => {
+  res.json(sampleProducts)
+})
+
+// for find product with specific slug
+app.get('/api/products/:slug', (req: Request, res: Response) => {
+  res.json(sampleProducts.find((product) => product.slug === req.params.slug));
+})
 
 const PORT = 4000
 app.listen(PORT, () => {
