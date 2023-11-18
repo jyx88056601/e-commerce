@@ -23,17 +23,16 @@ mongoose.connect(MONGDB_URI)
 
 //CORS is essential for building secure and interoperable web applications
 import cors from "cors"
+
 app.use(cors({
   credentials:true,
   origin: ["http://localhost:5173"],
 }))
-// 
-import sampleProducts from   "./src/data"
+ 
+
+
+import sampleProducts from "./src/product";
 // app will listen to port 4000 and wait for the valid request and return res.json(sampleProducts);
-
-
-
-
  
 app.get('/api/products', (req: Request, res: Response) => {
   res.json(sampleProducts)

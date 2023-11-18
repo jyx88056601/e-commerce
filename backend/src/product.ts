@@ -1,6 +1,6 @@
-import { Product } from "./types/Product";
+import { Product } from "./models/productModel";
 
-const sampleProducts: Product[] = [
+ const sampleProducts: Product[] = [
   {
     name: "2023 Honda Civic",
     slug: "2023-honda-civic",
@@ -122,5 +122,6 @@ const sampleProducts: Product[] = [
     rating: 5,
   },
 ];
+ 
 
 export default sampleProducts;
