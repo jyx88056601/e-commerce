@@ -1,51 +1,73 @@
-import { HStack, Text, Link } from '@chakra-ui/react';
-import { Container } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
-import ThemeModeSwitch from './components/ThemeModeSwitch';
+import { useContext, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
+import { Link, Outlet } from 'react-router-dom';
+import StoreContext from './contexts/storeContext';
+
 function App() {
+  const {
+    state: { mode, cart },
+    dispatch,
+  } = useContext(StoreContext);
+
+  useEffect(() => {
+    document.body.setAttribute('data-bs-theme', mode);
+  }, [mode]);
+
+  const switchModeHandler = () => {
+    dispatch({ type: 'SWITCH_MODE' });
+  };
+
   return (
     <div className="d-flex flex-column vh-100">
-      {/* <Navbar bg="dark" variant="dark" expand="lg">
-        <HStack>
-          <Container>
-            <Navbar.Brand>Brand Name</Navbar.Brand>
-          </Container>
-          <Nav>
-            <HStack>
-              <a href="/cart" className="nav-link">
-                Cart
-              </a>
-              <a href="/signin" className="nav-link">
-                Sign in
-              </a>
-              <ThemeModeSwitch></ThemeModeSwitch>
-            </HStack>
-          </Nav>
-        </HStack>
-      </Navbar> */}
+      <ToastContainer position="bottom-center" limit={1} />
+      <header>
+        <Navbar
+          className="d-flex flex-column align-items-stretch p-2 pb-0 mb-3"
+          bg="dark"
+          variant="dark"
+          expand="lg"
+        >
+          <LinkContainer to="/">
+            <Navbar.Brand>Shop Name</Navbar.Brand>
+          </LinkContainer>
+          <div className="d-flex justify-content-between align-items-center">
+            <Navbar.Collapse>
+              <Nav className="w-100 justify-content-end">
+                <Link /* theme switcher*/
+                  to="#"
+                  className="nav-link header-link"
+                  onClick={switchModeHandler}
+                >
+                  <i
+                    className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'}
+                  ></i>
+                </Link>
 
-      <HStack padding="10px" bg="black" justifyContent="space-between">
-        <Text color="white" fontSize="large">
-          Brand Name
-        </Text>
-        <Link href="/cart" color="white">
-          Cart
-        </Link>
-        <Link href="/cart" color="white">
-          Sign in
-        </Link>
-        <ThemeModeSwitch></ThemeModeSwitch>
-      </HStack>
+                <Link to="/cart" className="nav-link">
+                  Cart
+                  {cart.cartItems.length > 0 && ( // shopping cart badge
+                    <Badge pill bg="danger">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
+                </Link>
+              </Nav>
+            </Navbar.Collapse>
+          </div>
+        </Navbar>
+      </header>
 
-      <header>X Store</header>
       <main>
         <Container className="mt-3">
           <Outlet />
         </Container>
       </main>
-      <div className="text-center">
-        <footer>All right reserved</footer>
-      </div>
+      <footer>
+        <div className="text-center">All rights reserved</div>
+      </footer>
     </div>
   );
 }

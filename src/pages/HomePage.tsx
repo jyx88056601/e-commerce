@@ -1,4 +1,4 @@
-import { Row, Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -7,9 +7,8 @@ import { useGetProductsQuery } from '../hooks/productsHooks';
 import { ApiError } from '../types/ApiErr';
 import { getError } from '../utils';
 
-const HomePage = () => {
+export default function HomePage() {
   const { data: products, isLoading, error } = useGetProductsQuery();
-
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
@@ -17,16 +16,13 @@ const HomePage = () => {
   ) : (
     <Row>
       <Helmet>
-        <title>Store Homepage</title>
+        <title>TS Amazona</title>
       </Helmet>
-
-      {products?.map((product) => (
-        <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-          <ProductItem product={product}></ProductItem>
+      {products!.map((product) => (
+        <Col key={product.slug} sm={6} md={4} lg={3}>
+          <ProductItem product={product} />
         </Col>
       ))}
     </Row>
   );
-};
-
-export default HomePage;
+}

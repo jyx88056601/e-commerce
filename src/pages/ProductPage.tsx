@@ -1,14 +1,19 @@
+import { useContext } from 'react';
 import { Row, Col, ListGroup, Card, Badge, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Rating from '../components/Rating';
+import StoreContext from '../contexts/storeContext';
 import { useGetSlugProductQuery } from '../hooks/productsHooks';
+import { toast } from 'react-toastify';
+
 import { ApiError } from '../types/ApiErr';
-import { getError } from '../utils';
+import { convertProductToCartItem, getError } from '../utils';
 
 function ProductPage() {
+  const navigate = useNavigate();
   const { slug } = useParams();
   const {
     data: product,
@@ -16,6 +21,27 @@ function ProductPage() {
     isLoading,
     error,
   } = useGetSlugProductQuery(slug!);
+
+  const { state, dispatch } = useContext(StoreContext);
+
+  const addToCart = () => {
+    // calculating if product is out of stock
+    const existItem = state.cart.cartItems.find(
+      (cartItem) => cartItem._id === product!._id
+    );
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (product!.countInStock < quantity) {
+      toast.warn('Sorry, Product is out of stock');
+      return;
+    }
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...convertProductToCartItem(product!), quantity },
+    });
+    toast.success('Product added to the cart');
+    navigate('/cart');
+  };
 
   return isLoading ? (
     <LoadingBox />
@@ -76,7 +102,9 @@ function ProductPage() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button variant="primary" onClick={() => addToCart()}>
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
