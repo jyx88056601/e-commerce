@@ -6,6 +6,7 @@ import {
 import App from '../App';
 import CartPage from '../pages/CartPage';
 import HomePage from '../pages/HomePage';
+import PaymentPage from '../pages/PaymentPage';
 import ProductPage from '../pages/ProductPage';
 import ShippingPage from '../pages/ShippingPage';
 import SignInPage from '../pages/SignInPage';
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="signin" element={<SignInPage />} />
       <Route path="signup" element={<SignUpPage />} />
       <Route path="shipping" element={<ShippingPage />} />
+      <Route path="payment" element={<PaymentPage />} />
     </Route>
   )
 );
