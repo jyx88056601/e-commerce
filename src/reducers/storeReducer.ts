@@ -1,8 +1,10 @@
 import { Cart, CartItem, ShippingAddress } from "../types/Cart";
+import { UserInfo } from "../types/UserInfo";
 
 export type State = {
     mode: string;
     cart: Cart;
+    userInfo?: UserInfo;
   };
   
  export type Action =
@@ -11,7 +13,11 @@ export type State = {
     | { type: 'CART_REMOVE_ITEM'; payload: CartItem }
     | { type: 'CART_CLEAR' }
     | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
-    | { type: 'SAVE_PAYMENT_METHOD'; payload: string };
+    | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
+    | { type: 'USER_SIGNIN'; payload: UserInfo }
+    | { type: 'USER_SIGNOUT' }
+    
+
   
   // state: input: original state and actions -> new state
   function storeReducer(state: State, action: Action): State {
@@ -62,6 +68,33 @@ export type State = {
           ...state,
           cart: { ...state.cart, paymentMethod: action.payload },
         };
+
+      case 'USER_SIGNIN' : 
+        return {
+          ...state,
+          userInfo: action.payload
+        }   
+
+        case 'USER_SIGNOUT' : 
+        return {
+           mode: window.matchMedia && window.matchMedia("(prefers-colors-scheme: dark)").matches? "dark" : "light",
+           cart: {
+             cartItems: [],
+             paymentMethod: "Paypal",
+             shippingAddress: {
+                fullName: "",
+                address: "", 
+                postalCode: "", 
+                city:"", 
+                country: ""
+             },
+             itemsPrice: 0,
+             shippingPrice: 0,
+             taxPrice: 0,
+             totalPrice: 0,
+           }
+        }   
+        
       default:
         return state;
     }

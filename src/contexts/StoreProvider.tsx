@@ -25,6 +25,10 @@ const initialState: State = {
     taxPrice: 0,
     totalPrice: 0,
   },
+
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo')!)
+    : null,
 };
 
 interface Props {
