@@ -3,7 +3,7 @@ import apiClient from "../services/apiClient";
 import { UserInfo } from '../types/UserInfo'
 
 
-interface Params {
+interface SignInParams {
     email: string
     password: string
 }
@@ -11,7 +11,7 @@ interface Params {
 // useMutation hook:
 export const useSigninMutation = () =>
   useMutation({
-    mutationFn: ({email, password}: Params) =>(
+    mutationFn: ({email, password}: SignInParams) =>(
          apiClient.post<UserInfo>(`api/users/signin`, {
           email,
           password,
@@ -33,3 +33,21 @@ export const useSigninMutation = () =>
 //         })
 //       ).data,
 //   })
+
+
+interface SignUpParams {
+  name: string
+  email: string
+  password: string
+}
+
+export const useSignupMutation = () =>
+  useMutation({
+    mutationFn: ({name, email, password}: SignUpParams ) =>(
+         apiClient.post<UserInfo>(`api/users/signup`, {
+          name,
+          email,
+          password,
+        })
+      ).then(res  => res.data),
+  })
