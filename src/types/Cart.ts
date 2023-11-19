@@ -13,8 +13,8 @@ export type CartItem = {
     fullName: string
     address: string
     city: string
-    country: string
     postalCode: string
+    country: string
   }
 
   export type Cart = {
