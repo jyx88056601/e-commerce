@@ -4,7 +4,7 @@ import { User } from "./User"
 export type Order = {
     _id: string
     user: User
-    orderItem: CartItem[]
+    orderItems: CartItem[]
     shippingAddress: ShippingAddress
     paymentMethod: string
     itemsPrice: number

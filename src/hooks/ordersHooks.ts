@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query' 
 import apiClient from '../services/apiClient'
 import { CartItem, ShippingAddress } from '../types/Cart'
 import { Order } from '../types/Order'
@@ -13,10 +13,14 @@ interface CreateOrderParams {
     totalPrice: number
 }
 
-export const useCreateOrderMutation = () =>   useMutation({
+export const useCreateOrderMutation = () => useMutation({
     mutationFn: ({ orderItems, shippingAddress, paymentMethod, itemsPrice,  shippingPrice, taxPrice, totalPrice}: CreateOrderParams ) => 
     (apiClient.post<{message: string; order:Order}>(`api/orders`, { orderItems, shippingAddress, paymentMethod, itemsPrice,  shippingPrice, taxPrice, totalPrice})
     ).then(res  => res.data)
   })
 
+export const useGetOrderDetailQuery = (id:string) => useQuery({
+    queryKey: ["orders", id],
+    queryFn: () => apiClient.get<Order>(`api/orders/${id}`).then(res => res.data)
+})
   
