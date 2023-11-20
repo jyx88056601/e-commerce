@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
@@ -7,22 +7,18 @@ import StoreContext from '../contexts/storeContext';
 const ShippingPage = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useContext(StoreContext);
-  const userInfo = state.userInfo;
-  const shippingAdress = state.cart.shippingAddress;
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/signin?redirect=/shipping');
-    }
-  }, [userInfo, navigate]);
+  const shippingAddress = state.cart.shippingAddress;
 
-  const [fullName, setFullName] = useState(shippingAdress.fullName || '');
-  const [address, setAddress] = useState(shippingAdress.address || '');
-  const [city, setCity] = useState(shippingAdress.city || '');
-  const [postalCode, setPostalCode] = useState(shippingAdress.postalCode || '');
-  const [country, setCountry] = useState(shippingAdress.postalCode || '');
+  const [fullName, setFullName] = useState(shippingAddress.fullName || '');
+  const [address, setAddress] = useState(shippingAddress.address || '');
+  const [city, setCity] = useState(shippingAddress.city || '');
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ''
+  );
+  const [country, setCountry] = useState(shippingAddress.postalCode || '');
 
-  const submitHandler = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const submitHandler = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
       payload: {
@@ -63,7 +59,6 @@ const ShippingPage = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="address">
             <Form.Label>Address</Form.Label>
             <Form.Control
@@ -72,7 +67,6 @@ const ShippingPage = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
@@ -81,7 +75,6 @@ const ShippingPage = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="postalCode">
             <Form.Label>Postal Code</Form.Label>
             <Form.Control
@@ -90,7 +83,6 @@ const ShippingPage = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="country">
             <Form.Label>Country</Form.Label>
             <Form.Control
@@ -99,17 +91,12 @@ const ShippingPage = () => {
               required
             />
           </Form.Group>
+          <div className="mb-3">
+            <Button variant="primary" type="submit">
+              Continue
+            </Button>
+          </div>
         </Form>
-
-        <div className="mb-3">
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={() => navigate('/payment')}
-          >
-            Continue
-          </Button>
-        </div>
       </div>
     </div>
   );

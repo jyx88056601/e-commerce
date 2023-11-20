@@ -15,8 +15,8 @@ const PaymentPage = () => {
     }
   });
 
-  const submitHandler = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const submitHandler = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     dispatch({
       type: 'SAVE_PAYMENT_METHOD',
       payload: selectedPaymentMethod,
@@ -56,14 +56,7 @@ const PaymentPage = () => {
             />
           </div>
           <div className="mb-3">
-            <Button
-              type="submit"
-              onClick={() => {
-                navigate('/placeorder');
-              }}
-            >
-              Continue
-            </Button>
+            <Button type="submit">Continue</Button>
           </div>
         </Form>
       </div>

@@ -7,10 +7,12 @@ import App from '../App';
 import CartPage from '../pages/CartPage';
 import HomePage from '../pages/HomePage';
 import PaymentPage from '../pages/PaymentPage';
+import PlaceOrderPage from '../pages/PlaceOrderPage';
 import ProductPage from '../pages/ProductPage';
 import ShippingPage from '../pages/ShippingPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
+import ProtectedRouter from './ProtectedRouter';
 
 // // import Layout from "../pages/Layout";
 // // import Homepage from "../pages/Homepage";
@@ -30,7 +32,7 @@ import SignUpPage from '../pages/SignUpPage';
 //   },
 // ]);
 
-const router = createBrowserRouter(
+const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} element={<HomePage />} />
@@ -38,10 +40,13 @@ const router = createBrowserRouter(
       <Route path="cart" element={<CartPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="signup" element={<SignUpPage />} />
-      <Route path="shipping" element={<ShippingPage />} />
-      <Route path="payment" element={<PaymentPage />} />
+      <Route path="" element={<ProtectedRouter />}>
+        <Route path="shipping" element={<ShippingPage />} />
+        <Route path="payment" element={<PaymentPage />} />
+        <Route path="placeorder" element={<PlaceOrderPage />} />
+      </Route>
     </Route>
   )
 );
 
-export default router;
+export default Router;
