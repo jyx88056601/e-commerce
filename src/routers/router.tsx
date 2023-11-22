@@ -11,6 +11,7 @@ import OrderPage from '../pages/OrderPage';
 import PaymentPage from '../pages/PaymentPage';
 import PlaceOrderPage from '../pages/PlaceOrderPage';
 import ProductPage from '../pages/ProductPage';
+import ProfilePage from '../pages/ProfilePage';
 import ShippingPage from '../pages/ShippingPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
@@ -48,6 +49,7 @@ const Router = createBrowserRouter(
         <Route path="placeorder" element={<PlaceOrderPage />} />
         <Route path="/order/:id" element={<OrderPage />} />
         <Route path="/orderhistory" element={<OrderHistoryPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
     </Route>
   )

@@ -51,3 +51,21 @@ export const useSignupMutation = () =>
         })
       ).then(res  => res.data),
   })
+
+
+  interface UpdateProfileProps {
+    name: string
+    email: string
+    password: string
+  }
+
+  export const useUpdateProfileMutation = () =>
+  useMutation({
+    mutationFn: async ({name,email, password} : UpdateProfileProps ) => (
+        await apiClient.put<UserInfo>(`api/users/profile`, {
+          name,
+          email,
+          password,
+        })
+      ).data,
+  })
