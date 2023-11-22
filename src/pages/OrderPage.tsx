@@ -1,24 +1,116 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import StoreContext from '../contexts/storeContext';
-import { useGetOrderDetailQuery } from '../hooks/ordersHooks';
+import {
+  usePayPalScriptReducer,
+  PayPalButtonsComponentProps,
+  SCRIPT_LOADING_STATE,
+  PayPalButtons,
+} from '@paypal/react-paypal-js';
+
+import {
+  useGetOrderDetailQuery,
+  useGetPaypalClientIdQuery,
+  usePayOrderMutation,
+} from '../hooks/ordersHooks';
 import { ApiError } from '../types/ApiErr';
 import { getError } from '../utils';
 
 const OrderPage = () => {
-  const { state } = useContext(StoreContext);
-  const { userInfo } = state;
   const { id: orderId } = useParams();
 
-  const { data: order, isLoading, error } = useGetOrderDetailQuery(orderId!);
-  if (error)
-    <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>;
+  // refetch is used to update the UI based on the changes of the
+  const {
+    data: order,
+    isLoading,
+    error,
+    refetch,
+  } = useGetOrderDetailQuery(orderId!);
+
+  // get payOrder function from usePayOrderMutation hook
+  const { mutateAsync: payOrder, isPending: pendingPayment } =
+    usePayOrderMutation();
+
+  //  only use this function on development mode
+  // const testPayHandler = async () => {
+  //   await payOrder({ orderId: orderId! });
+  //   refetch();
+  //   toast.success('Order is paid');
+  // };
+
+  const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
+
+  const { data: paypalConfig } = useGetPaypalClientIdQuery();
+
+  useEffect(() => {
+    if (paypalConfig && paypalConfig.clientId) {
+      const loadPaypalScript = async () => {
+        paypalDispatch({
+          type: 'resetOptions',
+          value: {
+            clientId: paypalConfig!.clientId,
+            currency: 'CAD',
+          },
+        });
+        paypalDispatch({
+          type: 'setLoadingStatus',
+          value: SCRIPT_LOADING_STATE.PENDING,
+        });
+      };
+      loadPaypalScript();
+    }
+  }, [paypalConfig, paypalDispatch]);
+
+  const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
+    style: { layout: 'vertical' },
+    createOrder(data, actions) {
+      return actions.order
+        .create({
+          purchase_units: [
+            {
+              amount: {
+                value: order!.totalPrice.toString(),
+              },
+            },
+          ],
+        })
+        .then((orderId: string) => {
+          return orderId;
+        });
+    },
+
+    onApprove(data, actions) {
+      return actions.order!.capture().then(async (details) => {
+        try {
+          await payOrder({ orderId: orderId!, ...details });
+          refetch();
+          toast.success('Order is paid successfully');
+        } catch (err) {
+          toast.error(getError(err as ApiError));
+        }
+      });
+    },
+    onError: (err) => {
+      toast.error(getError(err as ApiError));
+    },
+  };
+
   if (isLoading) return <LoadingBox />;
-  if (!order) return <MessageBox variant="danger">Order Not Found</MessageBox>;
+
+  if (error) {
+    return (
+      <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>
+    );
+  }
+
+  if (!order) {
+    return <MessageBox variant="danger">Order Not Found</MessageBox>;
+  }
+
   return (
     <div>
       <Helmet>
@@ -26,6 +118,7 @@ const OrderPage = () => {
       </Helmet>
       <h1 className="my-3">Order {orderId}</h1>
       <Row>
+        {/*Display shipping part*/}
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
@@ -45,7 +138,7 @@ const OrderPage = () => {
               )}
             </Card.Body>
           </Card>
-
+          {/*Display payment part*/}
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Payment</Card.Title>
@@ -61,7 +154,7 @@ const OrderPage = () => {
               )}
             </Card.Body>
           </Card>
-
+          {/*Display items part*/}
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Items</Card.Title>
@@ -88,6 +181,7 @@ const OrderPage = () => {
             </Card.Body>
           </Card>
         </Col>
+        {/*Display Order summary part*/}
         <Col md={4}>
           <Card className="mb-3">
             <Card.Body>
@@ -121,7 +215,9 @@ const OrderPage = () => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {/* {!order.isPaid && (
+
+                {/*Display order payment detail part*/}
+                {!order.isPaid && (
                   <ListGroup.Item>
                     {isPending ? (
                       <LoadingBox />
@@ -134,12 +230,12 @@ const OrderPage = () => {
                         <PayPalButtons
                           {...paypalbuttonTransactionProps}
                         ></PayPalButtons>
-                        <Button onClick={testPayHandler}>Test Pay</Button>
+                        {/* <Button onClick={testPayHandler}>Test Pay</Button> */}
                       </div>
                     )}
-                    {loadingPay && <LoadingBox></LoadingBox>}
+                    {pendingPayment && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
-                )} */}
+                )}
               </ListGroup>
             </Card.Body>
           </Card>

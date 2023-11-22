@@ -11,8 +11,8 @@ orderRouter.get(
   '/mine',
   isAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    const orders = await OrderModel.find({ user: req.user._id })
-    res.json(orders)
+    const orders = await OrderModel.find({ user: req.user._id }) // link to mongodb
+    res.json(orders) // send result back to frontend
   })
 )
 
@@ -59,13 +59,13 @@ orderRouter.post(
   })
 )
 
-orderRouter.put(
+orderRouter.put( // put : update data  hook: usePayOrderMutation
   '/:id/pay',
   isAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    const order = await OrderModel.findById(req.params.id)
+    const order = await OrderModel.findById(req.params.id) // find order by order id from frontend
 
-    if (order) {
+    if (order) { // if order exists in the database then update the isPaid for this order to true
       order.isPaid = true
       order.paidAt = new Date(Date.now())
       order.paymentResult = {
@@ -74,11 +74,11 @@ orderRouter.put(
         update_time: req.body.update_time,
         email_address: req.body.email_address,
       }
-      const updatedOrder = await order.save()
+      const updatedOrder = await order.save() // save changes to mongodb and get the updated order
 
-      res.send({ order: updatedOrder, message: 'Order Paid Successfully' })
+      res.send({ order: updatedOrder, message: 'Order Paid Successfully' }) // send back to front end
     } else {
-      res.status(404).json({ message: 'Order Not Found' })
+      res.status(404).json({ message: 'Order Not Found' }) // order does not exist
     }
   })
 )

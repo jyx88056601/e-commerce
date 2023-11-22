@@ -37,3 +37,8 @@ img.thumbnail {
   border-bottom: 0.2rem solid #f08000;
   color: solid #f08000;
 }
+
+.dropdown-menu[da-bs-popper] {
+  left : auto;
+  right: 0;
+}

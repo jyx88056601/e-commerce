@@ -11,7 +11,7 @@ export type Order = {
     shippingPrice: number
     taxPrice: number
     totalPrice: number
-    createAt: string
+    createdAt: string
     isPaid: boolean
     paidAt: string
     isDelivered: boolean  
