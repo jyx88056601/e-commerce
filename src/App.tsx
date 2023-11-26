@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import StoreContext from './contexts/storeContext';
 import NavBar from './components/NavBar';
+
 function App() {
   const {
     state: { mode },
