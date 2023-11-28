@@ -23,8 +23,9 @@ export default function PlaceOrderPage() {
   );
 
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
+  console.log('shippingPrice is not included ' + cart.shippingPrice);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.totalPrice = parseFloat((cart.itemsPrice + cart.taxPrice).toFixed(2));
 
   const { mutateAsync: createOrder, isPending } = useCreateOrderMutation();
 

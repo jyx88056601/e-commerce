@@ -1,6 +1,5 @@
-import { modelOptions, prop, getModelForClass } from '@typegoose/typegoose';
+import { modelOptions, prop, getModelForClass, Severity } from '@typegoose/typegoose';
 
-@modelOptions({})
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Product {
   public _id?: string;
@@ -10,7 +9,7 @@ export class Product {
   public slug!: string;
   @prop({ required: true })
   public image!: string;
-  @prop()
+  @prop({ type: () => [String], options: { allowMixed: Severity.ALLOW } }) 
   public images?: string[];
   @prop({ required: true })
   public brand!: string;

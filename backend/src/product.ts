@@ -4,7 +4,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Honda Civic",
     slug: "2023-honda-civic",
-    image: "../public/images/honda-civic.jpg",
+    image: "../images/honda-civic.jpg",
     category: "Sedan",
     brand: "Honda",
     description: "The reliable and stylish 2023 Honda Civic for daily commuting.",
@@ -16,7 +16,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Audi Q7 SUV",
     slug: "2023-audi-q7-suv",
-    image: "../public/images/audi-q7-suv.jpg", // Update the image path here
+    image: "../images/audi-q7-suv.jpg", // Update the image path here
     category: "Suv",
     brand: "Audi",
     description: "Experience luxury and performance with the 2023 Audi Q7 SUV.",
@@ -28,7 +28,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Jeep Wrangler Rubicon",
     slug: "2023-jeep-wrangler-rubicon",
-    image: "../public/images/jeep-wrangler-rubicon.jpg", // Update the image path here
+    image: "../images/jeep-wrangler-rubicon.jpg", // Update the image path here
     category: "4X4",
     brand: "Jeep",
     description: "Conquer any terrain with the rugged 2023 Jeep Wrangler Rubicon.",
@@ -40,7 +40,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Porsche 911 Carrera",
     slug: "2023-porsche-911-carrera",
-    image: "../public/images/porsche-911-carrera.jpg", // Update the image path here
+    image: "../images/porsche-911-carrera.jpg", // Update the image path here
     category: "Sport cars",
     brand: "Porsche",
     description: "The iconic sports car, 2023 Porsche 911 Carrera, for the enthusiasts.",
@@ -52,7 +52,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Subaru Outback",
     slug: "2023-subaru-outback",
-    image: "../public/images/subaru-outback.jpg", // Update the image path here
+    image: "../images/subaru-outback.jpg", // Update the image path here
     category: "Wagon",
     brand: "Subaru",
     description: "A versatile and rugged choice, the 2023 Subaru Outback.",
@@ -64,7 +64,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Mercedes-Benz E-Class",
     slug: "2023-mercedes-benz-e-class",
-    image: "../public/images/mercedes-e-class.jpg", // Update the image path here
+    image: "../images/mercedes-e-class.jpg", // Update the image path here
     category: "Sedan",
     brand: "Mercedes-Benz",
     description: "Experience luxury and sophistication with the 2023 Mercedes-Benz E-Class.",
@@ -76,7 +76,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Tesla Model S",
     slug: "2023-tesla-model-s",
-    image: "../public/images/tesla-model-s.jpg", // Update the image path here
+    image: "../images/tesla-model-s.jpg", // Update the image path here
     category: "Electric cars",
     brand: "Tesla",
     description: "The sleek and powerful 2023 Tesla Model S electric car.",
@@ -88,7 +88,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Ford Mustang GT",
     slug: "2023-ford-mustang-gt",
-    image: "../public/images/ford-mustang-gt.jpg", // Update the image path here
+    image: "../images/ford-mustang-gt.jpg", // Update the image path here
     category: "Sport cars",
     brand: "Ford",
     description: "Experience the speed and style of the 2023 Ford Mustang GT.",
@@ -100,7 +100,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 Toyota Camry Hybrid",
     slug: "2023-toyota-camry-hybrid",
-    image: "../public/images/toyota-camry-hybrid.jpg", // Update the image path here
+    image: "../images/toyota-camry-hybrid.jpg", // Update the image path here
     category: "Sedan",
     brand: "Toyota",
     description: "Efficient and eco-friendly, the 2023 Toyota Camry Hybrid.",
@@ -112,7 +112,7 @@ import { Product } from "./models/productModel";
   {
     name: "2023 BMW X5 SUV",
     slug: "2023-bmw-x5-suv",
-    image: "../public/images/bmw-x5-suv.jpg", // Update the image path here
+    image: "../images/bmw-x5-suv.jpg", // Update the image path here
     category: "Suv",
     brand: "BMW",
     description: "Luxurious and powerful, the 2023 BMW X5 SUV for your adventures.",

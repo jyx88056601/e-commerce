@@ -1,3 +1,4 @@
+import path from 'path';
 import dotenv from "dotenv";
 dotenv.config();
 //backend library: express
@@ -23,11 +24,11 @@ mongoose.connect (MONGDB_URI)
 
 //CORS is essential for building secure and interoperable web applications
 import cors from "cors"
-import { productRouter } from "./src/routers/productRouter";
-import seedRouter from "./src/routers/seedRouter";
-import { userRouter } from "./src/routers/userRouter";
-import { orderRouter } from "./src/routers/orderRouter";
-import keyRouter from "./src/routers/keyRouter";
+import { productRouter } from "./routers/productRouter";
+import seedRouter from "./routers/seedRouter";
+import { userRouter } from "./routers/userRouter";
+import { orderRouter } from "./routers/orderRouter";
+import keyRouter from "./routers/keyRouter";
 app.use(cors({
   credentials:true,
   origin: ["http://localhost:5173"],
@@ -43,7 +44,15 @@ app.use('/api/seed', seedRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/keys', keyRouter);
 
-const PORT = 4000
+ 
+app.use(express.static(path.join(__dirname, '../../dist')));
+
+app.get('*', (req: Request, res: Response) =>
+  res.sendFile(path.join(__dirname, '../../dist/index.html'))
+)
+
+const PORT: number = parseInt((process.env.PORT || '4000') as string, 10)
+
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`)
 })
