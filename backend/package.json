@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "engines": {
-    "node": ">=21.2.0"
+    "node": ">=20.8.0"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --files index.ts",
