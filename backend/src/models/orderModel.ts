@@ -1,5 +1,6 @@
 import { modelOptions, prop, getModelForClass, Ref } from '@typegoose/typegoose'
 import { Product } from './productModel'
+ 
 import { User } from './userModel'
 
 // ? : optional
