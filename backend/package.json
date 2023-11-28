@@ -8,8 +8,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --files index.ts",
-    "build": "npm install && tsc",
-    "start": "node build/index.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
